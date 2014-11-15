@@ -116,3 +116,5 @@ checkInverseMatrix orig inv = Matrix.multStd orig inv
 
 modMatrix :: (Integral a) => a -> Matrix.Matrix a -> Matrix.Matrix a
 modMatrix x m = Matrix.fromList (Matrix.nrows m) (Matrix.ncols m) . map (`mod` x) . Matrix.toList $ m
+
+

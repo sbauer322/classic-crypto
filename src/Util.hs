@@ -2,6 +2,7 @@ module Util where
 
 import qualified Data.Char as Char
 import qualified Data.List as L
+import qualified Data.List.Split as Split
 import qualified Data.Map as M
 import qualified Data.Matrix as Matrix
 import qualified Data.Maybe as Maybe
@@ -70,6 +71,7 @@ mostCommonDigraph :: [(Char,Char,Int)]
 mostCommonDigraph = 
     [('a','i',117),('a','l',280),('a','n',359),('a','r',152),('a','s',235),('a','t',251),('b','e',118),('c','e',139),('d','a',111),('d','i',108),('d','o',168),('d','t',133),('e','a',260),('e','d',257),('e','e',111),('e','l',161),('e','m',111),('e','n',218),('e','r',444),('e','s',227),('e','t',211),('e','w',148),('h','a',267),('h','e',761),('h','i',195),('h','o',138),('i','c',131),('i','d',106),('i','n',450),('i','s',156),('i','t',321),('l','e',185),('l','i',208),('l','l',180),('m','e',138),('n','a',102),('n','d',337),('n','e',105),('n','g',262),('n','o',150),('n','t',186),('o','f',144),('o','n',235),('o','o',115),('o','r',174),('o','t',146),('o','u',355),('o','w',162),('r','a',119),('r','e',213),('r','i',126),('r','s',121),('r','y',100),('s','a',179),('s','e',217),('s','h',270),('s','o',123),('s','t',197),('t','a',158),('t','e',144),('t','h',725),('t','i',180),('t','o',293),('t','s',131),('t','t',176),('u','r',109),('u','s',125),('u','t',129),('v','e',149),('w','a',183),('w','h',104),('x','o',113)]
 
+-- Generates all the factors of a non-negative number.
 allFactors :: Int  -> [Int]
 allFactors x = L.nub . L.sort . map product . L.subsequences $ primeFactors
     where primeFactors = concatMap (\(x,y) -> [x | _ <- [1..y]]) (M.toList . decomposeNumber $ x)
@@ -117,4 +119,11 @@ checkInverseMatrix orig inv = Matrix.multStd orig inv
 modMatrix :: (Integral a) => a -> Matrix.Matrix a -> Matrix.Matrix a
 modMatrix x m = Matrix.fromList (Matrix.nrows m) (Matrix.ncols m) . map (`mod` x) . Matrix.toList $ m
 
+-- Given a string, pairs each character with the character immediately following it. In the event the string is of uneven length, a 'z' is padded onto the end.
+pairToInt :: String -> [(Int, Int)]
+pairToInt  s 
+    | length s `mod` 2 == 0 = map (\[x,y] -> (x,y)) $ Split.chunksOf 2 (map toDigit s)
+    | otherwise = pairToInt (s ++ "z")
 
+unpairToString :: [(Int, Int)] -> String
+unpairToString s = concatMap (\(x,y) -> [toChar x, toChar y]) s

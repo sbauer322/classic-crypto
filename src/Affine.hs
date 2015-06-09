@@ -14,6 +14,8 @@ decode c aBar b = U.decoding c formula
 -- First parameter in each tuple is the coefficient of a.
 -- The coefficient of a is the plaintext letter.
 --
+-- e.g., cryptanalysisChar ('e','o') ('t','x') where et are plaintext and ox ciphertext. The c and p below are misleading.
+--
 -- TODO: If there is a no matching inverse value found error, try swapping the tuples and excuting again before giving up.
 cryptanalysis :: (Int, Int) -> (Int, Int) -> (Int, Int)
 cryptanalysis (c1, p1) (c2, p2) = let 

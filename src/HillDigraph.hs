@@ -23,6 +23,8 @@ decode (a,b,c,d) cipher = encode decryptionMatrix cipher
 --
 -- First suspected ciphertext to plaintext mapping.
 -- Second suspected ciphertext to plaintext mapping.
+-- e.g., Util.modMatrix 26 (cryptanalysis (('z','l'),('h','e')) (('d','q'),('t','h')))
+-- Where zl, dq are ciphertext and he, th are plaintext.
 cryptanalysis :: ((Char, Char),(Char,Char)) -> ((Char,Char),(Char, Char)) -> Matrix.Matrix Int
 cryptanalysis ((c1,c2),(p1,p2)) ((c3,c4),(p3,p4)) = Matrix.multStd (cipherM) (Util.inverseModMatrix 26 plainM)
     where plainM = Matrix.fromList 2 2 (map Util.toDigit [p1, p3, p2, p4])

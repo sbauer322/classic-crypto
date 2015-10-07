@@ -9,6 +9,8 @@ This library was created to be used interactively via a REPL. Chances are it cou
 
 For the most part the modules are broken down by the algorithm they encipher and decipher. Core function naming should be consistent (more or less) across modules. Util.hs plays are role in centralizing often used functions such as I/O.
 
-### Examples
-
-TBD
+Functions named along the lines of `cryptanalysis` typically mean the function is used for attempting to break the cipher.
+  
+Development was done on the Haskell Platform.
+  
+Only strings of the normal case insensitive English alphabet (A-Z) were used.
